@@ -2,7 +2,7 @@
 set -euo pipefail
 
 # Configuration
-DOCKER_REPO="pankalog/fleet-deployment"
+DOCKER_REPO="w-reitinger/fleet-deployment"
 COMPOSE_PROJECT="fleet-management"
 BUILDER_NAME="multi-platform-builder"
 PLATFORMS="linux/amd64,linux/arm64"
