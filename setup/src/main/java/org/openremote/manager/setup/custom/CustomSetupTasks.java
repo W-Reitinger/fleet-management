@@ -37,7 +37,7 @@ public class CustomSetupTasks implements SetupTasks {
 
         // Add custom Setup task implementations here with tasks optionally dependent on setupType
         return Arrays.asList(
-            new CustomKeycloakSetup(container, isProduction),
+            new ReitingerKeycloakSetup(container, isProduction),
             new CustomManagerSetup(container)
         );
     }

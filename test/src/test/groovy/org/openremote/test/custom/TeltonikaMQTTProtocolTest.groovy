@@ -12,12 +12,11 @@ import org.openremote.manager.asset.AssetProcessingService
 import org.openremote.manager.asset.AssetStorageService
 import org.openremote.manager.event.ClientEventService
 import org.openremote.manager.mqtt.MQTTBrokerService
-import org.openremote.model.custom.AssetStateDuration
 import org.openremote.model.custom.CustomValueTypes
 import org.openremote.model.query.AssetQuery
 import telematics.teltonika.TeltonikaMQTTHandler
 import org.openremote.manager.setup.SetupService
-import org.openremote.manager.setup.custom.CustomKeycloakSetup
+import org.openremote.manager.setup.custom.ReitingerKeycloakSetup
 import org.openremote.model.Constants
 import org.openremote.model.asset.Asset
 import org.openremote.model.asset.agent.ConnectionStatus
@@ -80,7 +79,7 @@ class TeltonikaMQTTProtocolTest extends Specification implements ManagerContaine
         agentService = container.getService(AgentService.class)
         mqttBrokerService = container.getService(MQTTBrokerService.class)
         clientEventService = container.getService(ClientEventService.class)
-        def keycloakTestSetup = container.getService(SetupService.class).getTaskOfType(CustomKeycloakSetup.class)
+        def keycloakTestSetup = container.getService(SetupService.class).getTaskOfType(ReitingerKeycloakSetup.class)
         handler = mqttBrokerService.customHandlers.find {it instanceof TeltonikaMQTTHandler} as TeltonikaMQTTHandler
 
         mqttHost = mqttBrokerService.host
