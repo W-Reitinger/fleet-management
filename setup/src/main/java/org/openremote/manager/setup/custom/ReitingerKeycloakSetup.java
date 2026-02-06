@@ -21,7 +21,6 @@ package org.openremote.manager.setup.custom;
 
 import org.openremote.manager.setup.AbstractKeycloakSetup;
 import org.openremote.model.Container;
-import org.openremote.model.security.ClientRole;
 import org.openremote.model.security.Realm;
 import org.openremote.model.util.TextUtil;
 
@@ -31,6 +30,7 @@ public class ReitingerKeycloakSetup extends AbstractKeycloakSetup {
 
     public static final String CUSTOM_USER_PASSWORD = "CUSTOM_USER_PASSWORD";
     public static final String CUSTOM_USER_PASSWORD_DEFAULT = "custom";
+    public static final String REALM_NAME = "reitinger";
     protected final String customUserPassword;
 
     public ReitingerKeycloakSetup(Container container, boolean isProduction) {
@@ -46,7 +46,7 @@ public class ReitingerKeycloakSetup extends AbstractKeycloakSetup {
     @Override
     public void onStart() throws Exception {
         // Create custom realm
-        Realm reitinger = createRealm("reitinger", "W. Reitinger", true);
+        Realm reitinger = createRealm(REALM_NAME, "W. Reitinger", true);
 
     }
 }

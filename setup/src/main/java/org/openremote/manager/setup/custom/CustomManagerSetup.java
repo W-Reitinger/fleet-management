@@ -19,21 +19,42 @@
  */
 package org.openremote.manager.setup.custom;
 
+import org.apache.commons.io.IOUtils;
+import org.openremote.manager.rules.RulesService;
 import org.openremote.manager.setup.ManagerSetup;
 import org.openremote.model.Constants;
 import org.openremote.model.Container;
 import org.openremote.model.asset.impl.ThingAsset;
+import org.openremote.model.rules.RealmRuleset;
+import org.openremote.model.rules.Ruleset;
+
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 
 public class CustomManagerSetup extends ManagerSetup {
 
+    private Container container;
+
     public CustomManagerSetup(Container container) {
         super(container);
+        this.container = container;
     }
 
     @Override
     public void onStart() throws Exception {
         super.onStart();
 
-        // Create assets on clean startup here
+        RulesService rules = container.getService(RulesService.class);
+
+        try (InputStream inputStream = getClass().getResourceAsStream("/rules/austria-geofence.json")) {
+            if (inputStream == null) {
+                throw new IllegalStateException("Resource not found: /rules/austria-geofence.json");
+            }
+            String rule = IOUtils.toString(inputStream, StandardCharsets.UTF_8);
+            Ruleset ruleset = new RealmRuleset(
+                    ReitingerKeycloakSetup.REALM_NAME, "Austria Geofence", Ruleset.Lang.JSON, rule
+            ).setAccessPublicRead(true).setShowOnList(true);
+            Long realmSmartCityRulesetId = rulesetStorageService.merge(ruleset).getId();
+        }
     }
 }
