@@ -561,7 +561,7 @@ public class TeltonikaMQTTHandler extends MQTTHandler {
 
         Asset<? extends  Asset<VehicleAsset>> finalNewAsset = newAsset;
         attributes.get(VehicleAsset.LAST_CONTACT).flatMap(Attribute::getValue).ifPresent(dateVal -> {
-            finalNewAsset.setCreatedOn(dateVal);
+            finalNewAsset.setCreatedOn(dateVal.toInstant());
             finalNewAsset.getAttributes().forEach(attribute -> attribute.setTimestamp(dateVal.getTime()));
             attributes.forEach(attribute -> attribute.setTimestamp(dateVal.getTime()));
         });
